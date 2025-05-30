@@ -111,6 +111,9 @@ public:
 
 	void ToggleVisibleInGame(bool bVisible);
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnRuleViolated();
+
 protected:
 
 	/** Called for movement input */
