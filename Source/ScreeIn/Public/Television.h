@@ -122,7 +122,7 @@ public:
 	TObjectPtr<UTelevisionWidget> TelevisionWidgetInstance;
 
 	UPROPERTY(visibleAnywhere, BlueprintReadOnly, Category = "Television")
-	int CurrentChannel = 0;
+	int CurrentChannel = -1;
 	
 	int CurrentChannelNumber = 0;
 	FTimerHandle SwitchChannelTimerHandle;

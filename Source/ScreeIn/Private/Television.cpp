@@ -39,9 +39,6 @@ void ATelevision::BeginPlay()
 		}
 	}
 
-	CurrentChannel = -1;
-	// OnSwitchChannel.Broadcast(CurrentChannel);
-
 	if (bInitialPowerOn)
 	{
 		TurnPowerOn();
