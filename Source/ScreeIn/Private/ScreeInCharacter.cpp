@@ -20,6 +20,7 @@
 #include "InteractionInterface.h"
 #include "RemoteControl.h"
 #include "ScreeInHUD.h"
+#include "Core/ScreeInGameUserSettings.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -175,6 +176,11 @@ void AScreeInCharacter::Look(const FInputActionValue& Value)
 	// input is a Vector2D
 	FVector2D LookAxisVector = Value.Get<FVector2D>();
 
+	const UScreeInGameUserSettings* UserSettings = GetDefault<UScreeInGameUserSettings>();
+	const float Sens = UserSettings ? UserSettings->GetMouseSensitivity() : 1.0f;
+
+	LookAxisVector *= Sens;
+	
 	if (Controller != nullptr)
 	{
 		// add yaw and pitch input to controller

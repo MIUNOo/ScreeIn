@@ -12,11 +12,33 @@
 #include "GameFramework/PlayerStart.h"
 #include "Kismet/GameplayStatics.h"
 #include "ScreeIn/Public/ScreeInCharacter.h"
+#include "GameFramework/GameUserSettings.h"
 
 void AScreeInPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
+
+	FString IniPath = FPaths::GeneratedConfigDir() / TEXT("Windows/GameUserSettings.ini");
+	IPlatformFile& FileMgr = FPlatformFileManager::Get().GetPlatformFile();
+	 
+	
+	UGameUserSettings* UserSetting = UGameUserSettings::GetGameUserSettings();
+	
+	
+	if (FileMgr.FileExists(*IniPath))
+	{
+		UserSetting->LoadSettings(false);
+		UserSetting->ApplySettings(true);
+	}
+	else
+	{
+		UserSetting->RunHardwareBenchmark();
+		UserSetting->ApplyHardwareBenchmarkResults();
+		UserSetting->SaveSettings();
+	}
+
+	
 	if (MainMenuWidgetClass)
 	{
 		MainMenuWidget = CreateWidget<UUserWidget>(this, MainMenuWidgetClass);
