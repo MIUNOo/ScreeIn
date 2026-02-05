@@ -110,6 +110,9 @@ public:
 	void StoreLastRotation(const FRotator& Rotation);
 
 	void ToggleVisibleInGame(bool bVisible);
+	
+	UFUNCTION()
+	void ToggleSceneCapture(bool bEnable);
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnRuleViolated();
@@ -148,9 +151,9 @@ protected:
 
 public:
 	/** Returns CameraBoom subobject **/
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	/** Returns FollowCamera subobject **/
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	// FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+	// /** Returns FollowCamera subobject **/
+	// FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 	FRotator GetHeadRotation() const;
 

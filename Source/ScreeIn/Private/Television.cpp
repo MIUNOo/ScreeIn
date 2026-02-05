@@ -5,6 +5,7 @@
 
 #include "PickupItemData.h"
 #include "RemoteControl.h"
+#include "ScreeInCharacter.h"
 #include "ScreeInPlayerController.h"
 #include "Components/WidgetComponent.h"
 #include "Widgets/TelevisionWidget.h"
@@ -79,6 +80,11 @@ void ATelevision::SwitchChannelWithDelay(int Channel)
 	if (ChannelMap.Contains(Channel))
 	{
 		bCanEnterScreen = false;
+		if (AScreeInCharacter* Character = GetSwitchToCharacter())
+		{
+			Character->ToggleSceneCapture(true);
+		}
+		
 		OnShowStaticNoise.Broadcast();
 
 		GetWorld()->GetTimerManager().SetTimer(
@@ -98,6 +104,11 @@ void ATelevision::SwitchChannel(int Channel)
 	
 	bCanEnterScreen = true;
 	CurrentChannel = Channel;
+	if (AScreeInCharacter* Character = GetSwitchToCharacter())
+	{
+		Character->ToggleSceneCapture(true);
+	}
+	
 	OnSwitchChannel.Broadcast(CurrentChannel);
 }
 

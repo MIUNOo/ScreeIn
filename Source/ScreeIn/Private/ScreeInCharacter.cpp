@@ -72,6 +72,8 @@ AScreeInCharacter::AScreeInCharacter()
 
 	SceneCapture = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("SceneCapture"));
 	SceneCapture->SetupAttachment(HeadCamera);
+	SceneCapture->bCaptureEveryFrame = false;
+	SceneCapture->bCaptureOnMovement = false;
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
@@ -146,6 +148,11 @@ void AScreeInCharacter::ToggleVisibleInGame(bool bVisible)
 	GetCapsuleComponent()->SetCollisionEnabled(bVisible ? ECollisionEnabled::QueryAndPhysics : ECollisionEnabled::NoCollision);
 	GetCharacterMovement()->GravityScale = bVisible ? 1.0f : 0.0f;
 	GetCharacterMovement()->SetMovementMode(bVisible ? MOVE_Walking : MOVE_None);
+}
+
+void AScreeInCharacter::ToggleSceneCapture(bool bEnable)
+{
+	SceneCapture->bCaptureEveryFrame = bEnable;
 }
 
 void AScreeInCharacter::Move(const FInputActionValue& Value)

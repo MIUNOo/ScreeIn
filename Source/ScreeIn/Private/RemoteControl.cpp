@@ -15,7 +15,7 @@ const int ARemoteControl::ButtonLayout[4][3] = {
 
 // Sets default values
 ARemoteControl::ARemoteControl()
-	: CurrentHoveredNumber(0), CurrentHoveredX(0), CurrentHoveredY(0), CanHandleInput(true)
+	: CanHandleInput(true), CurrentHoveredNumber(0), CurrentHoveredX(0), CurrentHoveredY(0)
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
