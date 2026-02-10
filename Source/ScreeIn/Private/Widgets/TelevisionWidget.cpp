@@ -8,6 +8,7 @@
 
 void UTelevisionWidget::SetInfoText(const FText& Text)
 {
+
 	InfoText->SetText(Text);
 	if (Text.IsEmpty())
 	{

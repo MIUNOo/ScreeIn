@@ -13,6 +13,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "ScreeIn/Public/ScreeInCharacter.h"
 #include "GameFramework/GameUserSettings.h"
+#include "Widgets/ScreeInMainMenu.h"
 
 void AScreeInPlayerController::BeginPlay()
 {
@@ -110,8 +111,11 @@ void AScreeInPlayerController::EnterTelevision(ATelevision* Television)
 
 void AScreeInPlayerController::HideMainMenu()
 {
+	UScreeInMainMenu* ScreeInMenu = Cast<UScreeInMainMenu>(MainMenuWidget);
+	
 	if (MainMenuWidget)
 	{
+		
 		MainMenuWidget->RemoveFromParent();
 		MainMenuWidget = nullptr;
 	}
@@ -127,6 +131,11 @@ void AScreeInPlayerController::HideMainMenu()
 	GetHUD<AScreeInHUD>()->ToggleHud();
 
 	bGameStarted = true;
+
+	if (ScreeInMenu && ScreeInMenu->TargetTelevision)
+	{
+		EnterScreen(ScreeInMenu->TargetTelevision);
+	}
 }
 
 void AScreeInPlayerController::TogglePauseMenu()

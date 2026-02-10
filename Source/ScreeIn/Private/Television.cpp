@@ -60,7 +60,22 @@ void ATelevision::TriggerEnterScreen(AScreeInPlayerController* ScreeInPlayerCont
 AScreeInCharacter* ATelevision::GetSwitchToCharacter()
 {
 	FTVChannel Channel = GetChannel(CurrentChannel);
-	return Channel.Character.Get();
+	if (AScreeInCharacter* Target = Channel.Character.Get())
+	{
+		return Target;
+	}
+
+	if (UWorld* World = GetWorld())
+	{
+		if (APlayerController* PC = World->GetFirstPlayerController())
+		{
+			UE_LOG(LogTemp, Log, TEXT("GOT CHARACTER FROM PC"));
+			return Cast<AScreeInCharacter>(PC->GetPawn());
+			
+		}
+	}
+
+	return nullptr;
 }
 
 FTVChannel& ATelevision::GetChannel(int ChannelNumber)
