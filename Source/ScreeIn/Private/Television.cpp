@@ -95,13 +95,13 @@ void ATelevision::SwitchChannelWithDelay(int Channel)
 	if (ChannelMap.Contains(Channel))
 	{
 		bCanEnterScreen = false;
+		OnShowStaticNoise.Broadcast();
+		
 		if (AScreeInCharacter* Character = GetSwitchToCharacter())
 		{
-			Character->ToggleSceneCapture(true);
+			Character->ToggleSceneCapture(false);
 		}
 		
-		OnShowStaticNoise.Broadcast();
-
 		GetWorld()->GetTimerManager().SetTimer(
 			SwitchChannelTimerHandle,
 			[this, Channel]()
@@ -116,6 +116,11 @@ void ATelevision::SwitchChannelWithDelay(int Channel)
 void ATelevision::SwitchChannel(int Channel)
 {
 	if (!bIsPowerOn) return;
+	
+	if (AScreeInCharacter* Character = GetSwitchToCharacter())
+	{
+		Character->ToggleSceneCapture(false);
+	}
 	
 	bCanEnterScreen = true;
 	CurrentChannel = Channel;
@@ -158,6 +163,12 @@ void ATelevision::EnterChannelNumber(int Number)
 void ATelevision::TurnPower()
 {
 	bIsPowerOn = !bIsPowerOn;
+	
+	if (AScreeInCharacter* Character = GetSwitchToCharacter())
+	{
+		Character->ToggleSceneCapture(false);
+	}
+	
 	if (EnterChannelNumberTimerHandle.IsValid())
 	{
 		GetWorld()->GetTimerManager().ClearTimer(EnterChannelNumberTimerHandle);

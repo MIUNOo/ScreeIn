@@ -67,4 +67,5 @@ void UTelevisionSwitchUIButton::HandleUnhovered()
 
 	// TODO: 恢复到花屏
 	Television->SwitchChannel(PreviousChannel);
+	Television->OnShowStaticNoise.Broadcast();
 }

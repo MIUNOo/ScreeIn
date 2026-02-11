@@ -134,6 +134,7 @@ private:
 	FTimerHandle EnterSeatTimerHandle;
 	FTimerHandle ExitSeatTimerHandle;
 	FTimerHandle CameraFadeTimerHandle;
+	FTimerHandle TurnOffMenuTVTimerHandle;
 	bool bIsTransitioning;
 	int32 InventoryIndex;
 	TObjectPtr<APlayerStart> SecondMainRoomPlayerStart;

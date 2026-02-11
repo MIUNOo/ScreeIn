@@ -135,6 +135,15 @@ void AScreeInPlayerController::HideMainMenu()
 	if (ScreeInMenu && ScreeInMenu->TargetTelevision)
 	{
 		EnterScreen(ScreeInMenu->TargetTelevision);
+		
+		GetWorldTimerManager().SetTimer(
+		TurnOffMenuTVTimerHandle,
+		[ScreeInMenu]()
+		{
+			ScreeInMenu->TargetTelevision->TurnPower();
+		},
+		5.0f,
+		false);
 	}
 }
 
